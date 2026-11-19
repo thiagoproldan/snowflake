@@ -94,10 +94,6 @@ Now you can add the remaining module attributes like in the [the template](./tem
 
 See [the template](./template/default/flake.nix).
 
-# Examples
-
-See the [examples/](./examples) directory.
-
 # Projects using flake-parts
 
 - [nixd](https://github.com/nix-community/nixd/blob/main/flake.nix) (c++)
