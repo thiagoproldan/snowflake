@@ -1,5 +1,19 @@
 # 2026-11-19
 
+ - snowflake is now maintained by and for its one user, from the flake-parts
+   code synced below, and takes nothing more from flake-parts.
+
+ - Removed what only flake-parts' public project and its Hercules CI used:
+   `bors.toml`; the dev partition's Hercules CI setup (monthly lock pull
+   requests, the template effect, the `herculesCI` output, the `hci` CLI);
+   the examples, which stopped evaluating with the rename; the contribution
+   steps of `CONTRIBUTING.md`, whose style guide is now `STYLE.md`; and the
+   README's list of projects using flake-parts. The dev partition builds
+   for x86_64-linux alone.
+
+ - The templates are tested: nix-unit evaluates all four against this
+   snowflake.
+
  - Synced with flake-parts up to commit `ea2630b` (2026-11-01). The entries
    from here down are flake-parts' own, as upstream wrote them: where they
    say `flake-parts`, snowflake says `snowflake`, and `flake-parts-lib` is
