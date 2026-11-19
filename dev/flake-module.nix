@@ -16,7 +16,7 @@
     inputs.pre-commit-hooks-nix.flakeModule
     inputs.nix-unit.modules.flake.default
   ];
-  systems = [ "x86_64-linux" "aarch64-darwin" ];
+  systems = [ "x86_64-linux" ];
 
   perSystem = { config, pkgs, ... }: {
 
