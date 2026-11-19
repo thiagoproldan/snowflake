@@ -1,3 +1,10 @@
+# 2026-11-19
+
+ - Synced with flake-parts up to commit `ea2630b` (2026-11-01). The entries
+   from here down are flake-parts' own, as upstream wrote them: where they
+   say `flake-parts`, snowflake says `snowflake`, and `flake-parts-lib` is
+   `snowflake-lib`.
+
 # 2026-08-24
 
  - For those who **publish** modules using the [`flakeModules` module]:

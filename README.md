@@ -12,7 +12,10 @@ Opinionated features are provided by modules that you can import.
 > **Provenance and scope.** snowflake started as a copy of
 > [flake-parts](https://github.com/hercules-ci/flake-parts) by Hercules CI, used
 > under the MIT License — see [LICENSE](./LICENSE), whose copyright notice is
-> retained because most of this code is still theirs.
+> retained because most of this code is still theirs. Its code is flake-parts as
+> of commit
+> [`ea2630b`](https://github.com/hercules-ci/flake-parts/commit/ea2630b7470978622c7689a1ff75d2b389175399)
+> (2026-11-01), renamed; what changes from there on is snowflake's own.
 >
 > It is **not** a fork in the collaborative sense and **not** a replacement for
 > flake-parts. Upstream is not tracked, and nothing here is aimed at general use.
@@ -95,7 +98,7 @@ See [the template](./template/default/flake.nix).
 
 See the [examples/](./examples) directory.
 
-# Projects using snowflake
+# Projects using flake-parts
 
 - [nixd](https://github.com/nix-community/nixd/blob/main/flake.nix) (c++)
 - [hyperswitch](https://github.com/juspay/hyperswitch/blob/main/flake.nix) (rust)
