@@ -53,9 +53,6 @@ baseline level of compatibility: the core attributes that constitute a flake.
 
  - Reuse project logic written by others
 
-<!-- end_of_intro -->
-<!-- ^^^^^^^^^^^^ used by https://github.com/hercules-ci/flake.parts-website -->
-
 # Getting Started
 
 If your project does not have a flake yet:
@@ -94,17 +91,16 @@ Now you can add the remaining module attributes like in the [the template](./tem
 
 See [the template](./template/default/flake.nix).
 
-# Examples
+# Development
 
-See the [examples/](./examples) directory.
-
-# Projects using flake-parts
-
-- [nixd](https://github.com/nix-community/nixd/blob/main/flake.nix) (c++)
-- [hyperswitch](https://github.com/juspay/hyperswitch/blob/main/flake.nix) (rust)
-- [argo-workflows](https://github.com/argoproj/argo-workflows/blob/master/dev/nix/flake.nix) (go)
-- [nlp-service](https://github.com/recap-utr/nlp-service/blob/main/flake.nix) (python)
-- [emanote](https://github.com/srid/emanote/blob/master/flake.nix) (haskell)
+- `nix develop` (or `nix-shell`, or direnv with `.envrc`) enters the dev
+  shell, which installs a pre-commit hook that formats Nix files with
+  `nixpkgs-fmt`.
+- `nix flake check` runs every test; see [dev/tests](./dev/tests/README.md).
+- No automation moves the locks: `nix flake update` updates the framework's
+  `flake.lock`, `nix flake update --flake ./dev` the dev tools' lock, and
+  `nix flake check` vets either.
+- The code style is in [STYLE.md](./STYLE.md).
 
 # Options Reference
 

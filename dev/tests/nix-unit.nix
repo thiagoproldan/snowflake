@@ -292,6 +292,26 @@ let
       flake.withSystem = withSystem;
     });
 
+  # A template's flake as `nix flake init -t` leaves it, called the way Nix
+  # calls a flake, with this snowflake and the dev partition's nixpkgs as its
+  # inputs.
+  templateFlake = name:
+    let
+      inputs = { inherit nixpkgs snowflake; self = result; };
+      outputs = (import (../../template + "/${name}/flake.nix")).outputs inputs;
+      result = outputs // {
+        _type = "flake";
+        outPath = ../../template + "/${name}";
+        inherit inputs outputs;
+      };
+    in
+    result;
+
+  nixpkgsUnfree = import nixpkgs {
+    system = "x86_64-linux";
+    config.allowUnfree = true;
+  };
+
 in
 {
   "test: mkFlake does not force self" = {
@@ -741,6 +761,37 @@ in
         in
         result.formatter.x86_64-linux.name;
       expected = "fmt";
+    };
+  };
+
+  # See NOTE: Derivation comparison
+  templates = {
+    "test: default template's package" = {
+      expr = (templateFlake "default").packages.x86_64-linux.default.drvPath;
+      expected = nixpkgs.legacyPackages.x86_64-linux.hello.drvPath;
+    };
+
+    "test: multi-module template's packages, one from its module file" = {
+      expr = lib.mapAttrs (_: p: p.drvPath) (templateFlake "multi-module").packages.x86_64-linux;
+      expected = {
+        figlet = nixpkgs.legacyPackages.x86_64-linux.figlet.drvPath;
+        hello = nixpkgs.legacyPackages.x86_64-linux.hello.drvPath;
+      };
+    };
+
+    "test: package template's package and its check" = {
+      expr =
+        let flake = templateFlake "package";
+        in {
+          package = flake.packages.x86_64-linux.default.name;
+          check = flake.checks.x86_64-linux.hello.name;
+        };
+      expected = { package = "hello"; check = "test-hello"; };
+    };
+
+    "test: unfree template's package, from its unfree pkgs" = {
+      expr = (templateFlake "unfree").packages.x86_64-linux.default.drvPath;
+      expected = nixpkgsUnfree.hello-unfree.drvPath;
     };
   };
 }

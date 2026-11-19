@@ -1,17 +1,3 @@
-
-# How do I contribute?
-
-Flake-parts is designed to be extremely modular, so often, you don't have to.
-
-Nonetheless, some changes can only be made here.
-
-Step 1. Look for an open or closed issue. This may be the quickest path to a solution to your problem.
-
-Step 2. If needed, open an issue. This way we can discuss the problem, and if necessary discuss changes, if any need to be made.
-
-Step 3. If needed, create a PR. Make sure to run `nix-shell` before comitting. It installs a pre-commit hook with `nixpkgs-fmt`.
-
-
 # Style
 
 This repository is written in a style similar to that of Nixpkgs, with some exceptions.
