@@ -1,3 +1,18 @@
+# 2026-08-24
+
+ - For those who **publish** modules using the [`flakeModules` module]:
+   It now imports the [`modules` module] so as to make
+   output attribute `<your-flake>.modules.flake` available to module consumers.
+
+ - The opt-in modules are now also available as `inputs.flake-parts.modules.flake.<name>`.
+
+# 2026-05-04
+
+ - Add [`touchup`] module
+   for ad hoc flake output attribute modifications.
+
+ - Fix a strictness issue with [`formatter`] causing [`perSystem`] to be evaluated
+   for all [`systems`], unnecessarily.
 
 # 2026-01-05
 
@@ -114,3 +129,10 @@
  - `flake-modules-core` is now called `flake-parts`.
 
  - `flake.overlay` has been removed in favor of `flake.overlays.default`.
+
+[`formatter`]: https://flake.parts/options/flake-parts.html#opt-perSystem.formatter
+[`systems`]: https://flake.parts/options/flake-parts.html#opt-systems
+[`perSystem`]: https://flake.parts/options/flake-parts.html#opt-perSystem
+[`touchup`]: https://flake.parts/options/flake-parts-touchup.html
+[`flakeModules` module]: https://flake.parts/options/flake-parts-flakemodules
+[`modules` module]: https://flake.parts/options/flake-parts-modules.html

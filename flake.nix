@@ -87,6 +87,7 @@
       };
       flake = {
         inherit lib templates flakeModules;
+        modules.flake = flakeModules;
       };
     };
 

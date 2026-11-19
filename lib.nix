@@ -103,7 +103,7 @@ let
 
           ${errorExample}
         '')
-      , moduleLocation ? "${self.outPath}/flake.nix"
+      , moduleLocation ? self.outPath + "/flake.nix"
       }:
       let
         inputsPos = builtins.unsafeGetAttrPos "inputs" args;
