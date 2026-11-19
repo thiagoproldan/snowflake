@@ -1,15 +1,12 @@
 
 # Running the tests
 
-These tests can be run locally with the `hci effect run` command. This gives
-the tests access to a proper nix daemon and the network.
+`nix flake check`, from the top of the repository, runs them all:
 
-Designed for convenient deployments, it needs some information from git. You
-may use `--no-token` to disable this functionality if you're getting errors, or
-if you're asked to log in.
+- `nix-unit.nix`, the nix-unit tests: the modules, the lib, and every
+  template evaluated against this snowflake.
+- `perSystem-memoize.nix`: `withSystem` evaluates `perSystem` once for a
+  system, however many times it is called.
 
-Example:
-
-```console
-hci effect run --no-token default.effects.tests.template
-```
+nix-unit fetches the dev partition's inputs (`../flake.nix`) over the network
+inside its sandbox.
