@@ -162,6 +162,24 @@ let
       };
     });
 
+  flakeModulesFromModules = mkFlake
+    { inputs.self = { outPath = ./.; }; }
+    ({ config, ... }: {
+      imports = [
+        snowflake.flakeModules.flakeModules
+        snowflake.flakeModules.modules
+      ];
+      systems = [ ];
+      flake.modules.flake.default = { lib, ... }: {
+        options.flake.test123 = lib.mkOption { default = "option123"; };
+        imports = [ config.flake.flakeModules.extra ];
+      };
+      flake.modules.flake.extra = {
+        flake.test123 = "123test";
+      };
+      flake.flakeModules = config.flake.modules.flake;
+    });
+
   disableBuiltinModule = mod: mkFlake
     { inputs.self = { }; }
     {
@@ -173,6 +191,20 @@ let
     { inputs.self = { }; }
     {
       imports = [ flakeModulesDeclare.flakeModules.default ];
+    };
+
+  flakeModulesImportFromFromModules = mkFlake
+    { inputs.self = { }; }
+    {
+      imports = [ flakeModulesFromModules.flakeModules.default ];
+    };
+
+  # flakeModulesDeclare defines flakeModules only: modules.flake.default is
+  # there through the forward alone.
+  flakeModulesImportThroughModules = mkFlake
+    { inputs.self = { }; }
+    {
+      imports = [ flakeModulesDeclare.modules.flake.default ];
     };
 
   flakeModulesDisable = mkFlake
@@ -390,6 +422,16 @@ in
   flakeModules = {
     "test: import flakeModule" = {
       expr = flakeModulesImport.test123;
+      expected = "123test";
+    };
+
+    "test: import flakeModuleFromFromModules" = {
+      expr = flakeModulesImportFromFromModules.test123;
+      expected = "123test";
+    };
+
+    "test: import flakeModule through modules.flake" = {
+      expr = flakeModulesImportThroughModules.test123;
       expected = "123test";
     };
 

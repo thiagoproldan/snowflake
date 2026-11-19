@@ -32,14 +32,16 @@ let
   };
 in
 {
+  imports = [ ./modules.nix ];
   options = {
     flake = mkOption {
       type = types.submoduleWith {
         modules = [
           (mkAliasOptionModule [ "flakeModule" ] [ "flakeModules" "default" ])
-          {
+          ({ config, ... }: {
             options.flakeModules = flakeModulesOption;
-          }
+            config.modules.flake = lib.mkDefault config.flakeModules;
+          })
         ];
       };
     };
