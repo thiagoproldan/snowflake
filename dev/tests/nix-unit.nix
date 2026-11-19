@@ -199,6 +199,14 @@ let
       imports = [ flakeModulesFromModules.flakeModules.default ];
     };
 
+  # flakeModulesDeclare defines flakeModules only: modules.flake.default is
+  # there through the forward alone.
+  flakeModulesImportThroughModules = mkFlake
+    { inputs.self = { }; }
+    {
+      imports = [ flakeModulesDeclare.modules.flake.default ];
+    };
+
   flakeModulesDisable = mkFlake
     { inputs.self = { }; }
     {
@@ -419,6 +427,11 @@ in
 
     "test: import flakeModuleFromFromModules" = {
       expr = flakeModulesImportFromFromModules.test123;
+      expected = "123test";
+    };
+
+    "test: import flakeModule through modules.flake" = {
+      expr = flakeModulesImportThroughModules.test123;
       expected = "123test";
     };
 
